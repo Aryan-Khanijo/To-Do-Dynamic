@@ -9,6 +9,10 @@
     margin-top: 35px !important;
 }
 
+.notes>div{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .note-title{font-size: 18px;}
 .btn{text-align: right;}
 .btn>button{border: 0;outline: none; background-color: transparent;color: inherit;}
@@ -19,7 +23,7 @@
     margin: 5px;
     word-wrap: break-word !important;
     overflow-y: auto;
-    max-height: 160px; 
+    max-height: 400px;
 }
 
 .note-content::-webkit-scrollbar{

@@ -1,3 +1,6 @@
+var App = angular.module('NewApp', ['ngMaterial','ngMessages'])
+.controller('AppCtrl', function($scope) {});
+
 var colorcode = 0;
 var notescardbgTheme = ["w3-theme-d1","w3-theme-d2","w3-theme-d3","w3-theme-d4"];
 var notescontbgTheme = ["w3-theme-l4","w3-theme-l3","w3-theme-l2","w3-theme-l1"];
@@ -13,6 +16,24 @@ var removeNote = function (){
 var noteComplete = function(){
     var parent = this.parentElement.parentElement.parentElement;
     parent.classList.toggle("complete");
+    var icon = parent.firstElementChild.lastElementChild.firstElementChild.innerText;
+    if (icon === "check"){
+        parent.firstElementChild.lastElementChild.firstElementChild.innerText = "close";
+    }
+    else{
+        parent.firstElementChild.lastElementChild.firstElementChild.innerText = "check";
+    }
+}
+
+var noteEdit = function (){
+    var parent = this.parentElement.parentElement.parentElement;
+    var edit_bool = parent.lastElementChild.getAttribute("contentEditable");
+    if(edit_bool === "false"){
+        parent.lastElementChild.setAttribute("contentEditable","true");
+    }
+    else{
+        parent.lastElementChild.setAttribute("contentEditable","false");
+    }
 }
 
 function createNote(title, content){
@@ -40,10 +61,12 @@ function createNote(title, content){
 
     noteContent.className = "note-content " + notescontbgTheme[colorcode];
     noteContent.innerHTML = content;
+    noteContent.setAttribute("contentEditable","false");
     
     
     iconsDelete.addEventListener('click',removeNote);
     iconsCheck.addEventListener('click',noteComplete);
+    iconsEdit.addEventListener('click',noteEdit);
 
     headerIcons.appendChild(iconsCheck);
     headerIcons.appendChild(iconsEdit);
