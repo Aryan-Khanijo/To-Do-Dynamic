@@ -1,0 +1,38 @@
+.note{
+    padding: 10px;
+    border-radius: 25px;
+    margin: 5px;
+}
+
+.notes{
+    margin: auto !important;
+    margin-top: 35px !important;
+}
+
+.note-title{font-size: 18px;}
+.btn{text-align: right;}
+.btn>button{border: 0;outline: none; background-color: transparent;color: inherit;}
+
+.note-content{
+    padding: 10px;
+    border-radius: 25px;
+    margin: 5px;
+    word-wrap: break-word !important;
+    overflow-y: auto;
+    max-height: 160px; 
+}
+
+.note-content::-webkit-scrollbar{
+    display: none;
+}
+
+.complete{
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    text-decoration: line-through !important;
+}
+
+.complete>.note-content{
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
+}

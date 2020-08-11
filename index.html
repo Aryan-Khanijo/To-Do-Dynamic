@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+	<!-- W3 Theme StyleSheet -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<!-- <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-deep-purple.css"> -->
+	<!-- <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-w3schools.css"> -->
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-deep-orange.css">
+	<!-- Matrial Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Mystyle Sheet -->
+	<link rel="stylesheet" href="./static/style.css">
+</head>
+<body ng-app="NewApp" ng-controller="AppCtrl">
+	<div class="w3-theme w3-card w3-container" layout="row" layout-align="center center">
+		<h1>To Do App</h1>
+	</div>
+	<div flex="60" flex-offset="20" layout="column" class="w3-text-theme">
+		<h2>Add item</h2>
+		<form name="addnote">
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Title</label>
+				<input id="title" name="title" ng-model="title" required="">
+				<div ng-messages="addnote.title.$error" ng-show="addnote.title.$dirty">
+					<div ng-message="required">This is required!</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Content</label>
+				<textarea id="content" name="content" ng-model="content" required=""></textarea>
+				<div ng-messages="addnote.content.$error" ng-show="addnote.content.$dirty">
+					<div ng-message="required">This is required!</div>
+				</div>
+			</md-input-container>
+		</form>
+		<div layout="row" layout-align="end end">
+			<md-button type="submit" onclick="newtodo()" class="add w3-theme">Add</md-button>
+			<!-- <button id="addnote" class="add w3-theme md-button md-ink-ripple" type="submit" ng-transclude="" onclick="">Add</button> -->
+		</div>
+	</div>
+	<div flex="75" style="flex-wrap: wrap;" class="notes" layout="row" id="currnotes" layout-align="center start">
+		
+	</div>
+  	<!-- Angular Material requires Angular.js Libraries -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+  	<!-- Angular Material Library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+  	<!-- Your application bootstrap  -->
+  	<script type="text/javascript">    
+		var App = angular.module('NewApp', ['ngMaterial','ngMessages']);
+		App.controller('AppCtrl', function($scope) {});
+	</script>
+	<script src="./static/script.js"></script>  
+</body>
+</html>
