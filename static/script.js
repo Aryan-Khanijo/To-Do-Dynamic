@@ -47,7 +47,7 @@ function createNote(title, content){
     var iconsDelete = document.createElement("button");
     var noteContent = document.createElement("div");
 
-    divNote.className = "flex-80 flex-gt-sm-35 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
+    divNote.className = "flex-90 flex-gt-sm-50 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
     
     noteHeader.className = "flex-100 layout-column";
 
