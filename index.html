@@ -38,7 +38,10 @@
 		</form>
 		<div layout="row" layout-align="end end">
 			<md-button type="submit" onclick="newtodo()" class="add w3-theme">Add</md-button>
-			<!-- <button id="addnote" class="add w3-theme md-button md-ink-ripple" type="submit" ng-transclude="" onclick="">Add</button> -->
+		</div>
+		<div id="Alert" class="hidden">
+		<span class="closebtn" onclick="hide()">&times;</span> 
+			<strong>Alert!</strong>You need to enter Title and content.
 		</div>
 	</div>
 	<div flex="75" style="flex-wrap: wrap;" class="notes" layout="row" id="currnotes" layout-align="center start"></div>

@@ -1,3 +1,9 @@
+html, body{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+html::-webkit-scrollbar{display: none;}
+
 .note{
     padding: 10px;
     border-radius: 25px;
@@ -40,3 +46,24 @@
     background-color: rgba(0, 0, 0, 0.4) !important;
     color: white !important;
 }
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+  
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {color: black;}
+
+.hidden{display: none;}

@@ -81,9 +81,19 @@ function createNote(title, content){
     return divNote;
 }
 
+function hide(){
+    document.getElementById("Alert").setAttribute('class','hidden');
+}
+
 function newtodo(){
-    var note = createNote(NewToDoTitle.value,NewToDoContent.value);
-    NewToDoTitle.value = "";
-    NewToDoContent.value = "";
-    document.getElementById("currnotes").appendChild(note);
+    if(NewToDoTitle.value === "" || NewToDoContent.value === ""){
+        document.getElementById("Alert").setAttribute('class','alert');
+    }
+    else{ 
+        var note = createNote(NewToDoTitle.value,NewToDoContent.value);
+        NewToDoTitle.value = "";
+        NewToDoContent.value = "";
+        document.getElementById("currnotes").appendChild(note);
+        document.getElementById("Alert").setAttribute('class','hidden'); 
+    }
 }
