@@ -21,13 +21,13 @@ var noteComplete = async function(){
     if (icon === "check"){
         parent.firstElementChild.lastElementChild.firstElementChild.innerText = "close";
         parent.firstElementChild.lastElementChild.childNodes[0].disabled = true;
-        await sleep(500);
+        await sleep(100);
         parent.firstElementChild.lastElementChild.childNodes[0].disabled = false;
     }
     else{
         parent.firstElementChild.lastElementChild.firstElementChild.innerText = "check";
         parent.firstElementChild.lastElementChild.childNodes[0].disabled = true;
-        await sleep(500);
+        await sleep(100);
         parent.firstElementChild.lastElementChild.childNodes[0].disabled = false;
     }
 }
@@ -39,7 +39,7 @@ var noteEdit = async function (){
         parent.lastElementChild.setAttribute("contentEditable","true");
         parent.firstElementChild.lastElementChild.childNodes[1].innerText = "save";
         parent.firstElementChild.lastElementChild.childNodes[1].disabled = true;
-        await sleep(500);
+        await sleep(100);
         parent.firstElementChild.lastElementChild.childNodes[1].disabled = false;
     }
     else{
@@ -51,7 +51,7 @@ var noteEdit = async function (){
             parent.lastElementChild.setAttribute("contentEditable","false");
             parent.firstElementChild.lastElementChild.childNodes[1].innerText = "edit";
             parent.firstElementChild.lastElementChild.childNodes[1].disabled = true;
-            await sleep(500);
+            await sleep(100);
             parent.firstElementChild.lastElementChild.childNodes[1].disabled = false;
         }
     }
