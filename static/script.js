@@ -7,34 +7,53 @@ var notescontbgTheme = ["w3-theme-l4","w3-theme-l3","w3-theme-l2","w3-theme-l1"]
 var NewToDoTitle = document.getElementById("title");
 var NewToDoContent = document.getElementById("content");
 var addbtn = document.getElementById("addnote");
+const sleep = ms => new Promise(res => setTimeout(res, ms));
 
 var removeNote = function (){
     var parent = this.parentElement.parentElement.parentElement;
     parent.parentNode.removeChild(parent);
 }
 
-var noteComplete = function(){
+var noteComplete = async function(){
     var parent = this.parentElement.parentElement.parentElement;
     parent.classList.toggle("complete");
     var icon = parent.firstElementChild.lastElementChild.firstElementChild.innerText;
     if (icon === "check"){
         parent.firstElementChild.lastElementChild.firstElementChild.innerText = "close";
+        parent.firstElementChild.lastElementChild.childNodes[0].disabled = true;
+        await sleep(500);
+        parent.firstElementChild.lastElementChild.childNodes[0].disabled = false;
     }
     else{
         parent.firstElementChild.lastElementChild.firstElementChild.innerText = "check";
+        parent.firstElementChild.lastElementChild.childNodes[0].disabled = true;
+        await sleep(500);
+        parent.firstElementChild.lastElementChild.childNodes[0].disabled = false;
     }
 }
 
-var noteEdit = function (){
+var noteEdit = async function (){
     var parent = this.parentElement.parentElement.parentElement;
     var edit_bool = parent.lastElementChild.getAttribute("contentEditable");
     if(edit_bool === "false"){
         parent.lastElementChild.setAttribute("contentEditable","true");
         parent.firstElementChild.lastElementChild.childNodes[1].innerText = "save";
+        parent.firstElementChild.lastElementChild.childNodes[1].disabled = true;
+        await sleep(500);
+        parent.firstElementChild.lastElementChild.childNodes[1].disabled = false;
     }
     else{
-        parent.lastElementChild.setAttribute("contentEditable","false");
-        parent.firstElementChild.lastElementChild.childNodes[1].innerText = "edit";
+        if(parent.lastElementChild.innerHTML===""){
+            parent.childNodes[1].className = "error-message";
+        }
+        else{
+            parent.childNodes[1].className = "hidden";
+            parent.lastElementChild.setAttribute("contentEditable","false");
+            parent.firstElementChild.lastElementChild.childNodes[1].innerText = "edit";
+            parent.firstElementChild.lastElementChild.childNodes[1].disabled = true;
+            await sleep(500);
+            parent.firstElementChild.lastElementChild.childNodes[1].disabled = false;
+        }
     }
 }
 
@@ -47,9 +66,10 @@ function createNote(title, content){
     var iconsCheck = document.createElement("button");
     var iconsEdit = document.createElement("button");
     var iconsDelete = document.createElement("button");
+    var noteError = document.createElement("div");
     var noteContent = document.createElement("div");
 
-    divNote.className = "flex-90 flex-gt-sm-40 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
+    divNote.className = "flex-90 flex-gt-sm-40 flex-gt-md-25 layout-column note " + notescardbgTheme[colorcode]; 
     
     noteHeader.className = "flex-100 layout-column";
 
@@ -60,6 +80,9 @@ function createNote(title, content){
     iconsCheck.innerHTML = "check";
     iconsEdit.innerHTML = "edit"
     iconsDelete.innerHTML = "delete";
+
+    noteError.className = "hidden";
+    noteError.innerHTML = "You Cannot leave the content empty."
 
     content = content.replace(/\r?\n/g, '<br />');
     noteContent.className = "note-content " + notescontbgTheme[colorcode];
@@ -79,6 +102,7 @@ function createNote(title, content){
     noteHeader.appendChild(headerIcons);
 
     divNote.appendChild(noteHeader);
+    divNote.appendChild(noteError);
     divNote.appendChild(noteContent);
     colorcode += 1;
     return divNote;
@@ -89,14 +113,14 @@ function hide(){
 }
 
 function newtodo(){
-    // if(NewToDoTitle.value === "" || NewToDoContent.value === ""){
-    //     document.getElementById("Alert").setAttribute('class','alert');
-    // }
-    // else{ 
+    if(NewToDoTitle.value === "" || NewToDoContent.value === ""){
+        document.getElementById("Alert").setAttribute('class','alert');
+    }
+    else{ 
         var note = createNote(NewToDoTitle.value,NewToDoContent.value);
         NewToDoTitle.value = "";
         NewToDoContent.value = "";
         document.getElementById("currnotes").appendChild(note);
         document.getElementById("Alert").setAttribute('class','hidden'); 
-    // }
+    }
 }
