@@ -37,14 +37,15 @@
 			</md-input-container>
 		</form>
 		<div layout="row" layout-align="end end">
-			<md-button type="submit" onclick="newtodo()" class="add w3-theme">Add</md-button>
+			<md-button onclick="newtodo()" class="add w3-theme">Add</md-button>
 		</div>
 		<div id="Alert" class="hidden">
 		<span class="closebtn" onclick="hide()">&times;</span> 
-			<strong>Alert!</strong>You need to enter Title and content.
+			<strong>Alert!</strong> You need to enter Title and content.
 		</div>
 	</div>
-	<div flex="75" style="flex-wrap: wrap;" class="notes" layout="row" id="currnotes" layout-align="center start"></div>
+	<div flex="75" style="flex-wrap: wrap;" class="notes" layout="row" id="currnotes" layout-align="center start">
+	</div>
   	<!-- Angular Material requires Angular.js Libraries -->
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>

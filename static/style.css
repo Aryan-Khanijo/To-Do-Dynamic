@@ -47,6 +47,10 @@ html::-webkit-scrollbar{display: none;}
     color: white !important;
 }
 
+.note-content[contenteditable]{
+    outline: 0px solid transparent;
+}
+
 .alert {
     padding: 20px;
     background-color: #f44336;

@@ -30,9 +30,11 @@ var noteEdit = function (){
     var edit_bool = parent.lastElementChild.getAttribute("contentEditable");
     if(edit_bool === "false"){
         parent.lastElementChild.setAttribute("contentEditable","true");
+        parent.firstElementChild.lastElementChild.childNodes[1].innerText = "save";
     }
     else{
         parent.lastElementChild.setAttribute("contentEditable","false");
+        parent.firstElementChild.lastElementChild.childNodes[1].innerText = "edit";
     }
 }
 
@@ -47,7 +49,7 @@ function createNote(title, content){
     var iconsDelete = document.createElement("button");
     var noteContent = document.createElement("div");
 
-    divNote.className = "flex-90 flex-gt-sm-50 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
+    divNote.className = "flex-90 flex-gt-sm-40 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
     
     noteHeader.className = "flex-100 layout-column";
 
@@ -59,6 +61,7 @@ function createNote(title, content){
     iconsEdit.innerHTML = "edit"
     iconsDelete.innerHTML = "delete";
 
+    content = content.replace(/\r?\n/g, '<br />');
     noteContent.className = "note-content " + notescontbgTheme[colorcode];
     noteContent.innerHTML = content;
     noteContent.setAttribute("contentEditable","false");
@@ -86,14 +89,14 @@ function hide(){
 }
 
 function newtodo(){
-    if(NewToDoTitle.value === "" || NewToDoContent.value === ""){
-        document.getElementById("Alert").setAttribute('class','alert');
-    }
-    else{ 
+    // if(NewToDoTitle.value === "" || NewToDoContent.value === ""){
+    //     document.getElementById("Alert").setAttribute('class','alert');
+    // }
+    // else{ 
         var note = createNote(NewToDoTitle.value,NewToDoContent.value);
         NewToDoTitle.value = "";
         NewToDoContent.value = "";
         document.getElementById("currnotes").appendChild(note);
         document.getElementById("Alert").setAttribute('class','hidden'); 
-    }
+    // }
 }
