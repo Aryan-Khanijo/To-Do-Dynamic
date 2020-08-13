@@ -4,6 +4,14 @@ html, body{
 }
 html::-webkit-scrollbar{display: none;}
 
+.md-input{
+    border-color: #00bcd4 !important;
+}
+
+.md-input-focused label{
+    color: #00bcd4 !important;
+}
+
 .note{
     padding: 10px;
     border-radius: 25px;

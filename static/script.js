@@ -78,7 +78,7 @@ function createNote(title, content){
     var noteError = document.createElement("div");
     var noteContent = document.createElement("div");
 
-    divNote.className = "flex-90 flex-gt-sm-40 flex-gt-md-25 layout-column note " + notescardbgTheme[colorcode]; 
+    divNote.className = "flex-90 flex-gt-xs-40 flex-md-30 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
     
     noteHeader.className = "flex-100 layout-column";
 
