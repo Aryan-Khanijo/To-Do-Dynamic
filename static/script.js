@@ -9,9 +9,18 @@ var NewToDoContent = document.getElementById("content");
 var addbtn = document.getElementById("addnote");
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
-var removeNote = function (){
+var removeNote = async function (){
     var parent = this.parentElement.parentElement.parentElement;
     parent.parentNode.removeChild(parent);
+    var dltbtn = document.getElementsByClassName("prev-dbl-click");
+    var order;
+    for(order=0; order<dltbtn.length; order++){
+        dltbtn[order].disabled = true;
+    }
+    await sleep(100);
+    for(order=0; order<dltbtn.length; order++){
+        dltbtn[order].disabled = false;
+    }
 }
 
 var noteComplete = async function(){
@@ -89,7 +98,7 @@ function createNote(title, content){
     noteContent.innerHTML = content;
     noteContent.setAttribute("contentEditable","false");
     
-    
+    iconsDelete.className = "prev-dbl-click";
     iconsDelete.addEventListener('click',removeNote);
     iconsCheck.addEventListener('click',noteComplete);
     iconsEdit.addEventListener('click',noteEdit);
