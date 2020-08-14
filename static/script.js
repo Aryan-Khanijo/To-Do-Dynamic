@@ -129,6 +129,10 @@ function newtodo(){
         var note = createNote(NewToDoTitle.value,NewToDoContent.value);
         NewToDoTitle.value = "";
         NewToDoContent.value = "";
+        NewToDoTitle.focus = true;
+        NewToDoTitle.focus = false;
+        NewToDoContent.focus = true;
+        NewToDoContent.focus = false;
         document.getElementById("currnotes").appendChild(note);
         document.getElementById("Alert").setAttribute('class','hidden'); 
     }
