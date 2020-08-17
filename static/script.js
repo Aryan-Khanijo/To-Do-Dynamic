@@ -6,7 +6,6 @@ var notescardbgTheme = ["w3-theme-d1","w3-theme-d2","w3-theme-d3","w3-theme-d4"]
 var notescontbgTheme = ["w3-theme-l4","w3-theme-l3","w3-theme-l2","w3-theme-l1"];
 var NewToDoTitle = document.getElementById("title");
 var NewToDoContent = document.getElementById("content");
-var addbtn = document.getElementById("addnote");
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
 var removeNote = async function (){
@@ -66,55 +65,66 @@ var noteEdit = async function (){
     }
 }
 
-function createNote(title, content){
-    if(colorcode>3){colorcode = 0;}
-    var divNote = document.createElement("div");
-    var noteHeader = document.createElement("div");
-    var headerTitle = document.createElement("div");
-    var headerIcons = document.createElement("i");
-    var iconsCheck = document.createElement("button");
-    var iconsEdit = document.createElement("button");
-    var iconsDelete = document.createElement("button");
-    var noteError = document.createElement("div");
-    var noteContent = document.createElement("div");
+var Note = {
+    Title: NewToDoTitle,
+    Content: NewToDoContent,
+    divClasscom: "flex-90 flex-gt-xs-40 flex-md-30 flex-gt-md-20 layout-column note ",
+    headClass: "flex-100 layout-column",
+    titleClass: "note-title",
+    iconClass: "material-icons btn",
+    iconCheck: "check",
+    iconEdit: "edit",
+    iconDelete: "delete",
+    noteError: "You Cannot leave the content empty.",
+    createNote: function(){
+        if(colorcode>3){colorcode = 0;}
+        var divNote = document.createElement("div");
+        var noteHeader = document.createElement("div");
+        var headerTitle = document.createElement("div");
+        var headerIcons = document.createElement("i");
+        var iconsCheck = document.createElement("button");
+        var iconsEdit = document.createElement("button");
+        var iconsDelete = document.createElement("button");
+        var noteError = document.createElement("div");
+        var noteContent = document.createElement("div");
 
-    divNote.className = "flex-90 flex-gt-xs-40 flex-md-30 flex-gt-md-20 layout-column note " + notescardbgTheme[colorcode]; 
-    
-    noteHeader.className = "flex-100 layout-column";
+        divNote.className =  this.divClasscom + notescardbgTheme[colorcode]; 
+        
+        noteHeader.className = this.headClass;
 
-    headerTitle.className = "note-title";
-    headerTitle.innerText = title;
+        headerTitle.className = this.titleClass;
+        headerTitle.innerText = this.Title.value;
 
-    headerIcons.className = "material-icons btn";
-    iconsCheck.innerHTML = "check";
-    iconsEdit.innerHTML = "edit"
-    iconsDelete.innerHTML = "delete";
+        headerIcons.className = this.iconClass;
+        iconsCheck.innerHTML = this.iconCheck;
+        iconsEdit.innerHTML = this.iconEdit;
+        iconsDelete.innerHTML = this.iconDelete;
 
-    noteError.className = "hidden";
-    noteError.innerHTML = "You Cannot leave the content empty."
+        noteError.className = "hidden";
+        noteError.innerHTML = this.noteError;
 
-    content = content.replace(/\r?\n/g, '<br />');
-    noteContent.className = "note-content " + notescontbgTheme[colorcode];
-    noteContent.innerHTML = content;
-    noteContent.setAttribute("contentEditable","false");
-    
-    iconsDelete.className = "prev-dbl-click";
-    iconsDelete.addEventListener('click',removeNote);
-    iconsCheck.addEventListener('click',noteComplete);
-    iconsEdit.addEventListener('click',noteEdit);
+        noteContent.className = "note-content " + notescontbgTheme[colorcode];
+        noteContent.innerHTML = this.Content.value.replace(/\r?\n/g, '<br />');
+        noteContent.setAttribute("contentEditable","false");
+        
+        iconsDelete.className = "prev-dbl-click";
+        iconsDelete.addEventListener('click',removeNote);
+        iconsCheck.addEventListener('click',noteComplete);
+        iconsEdit.addEventListener('click',noteEdit);
 
-    headerIcons.appendChild(iconsCheck);
-    headerIcons.appendChild(iconsEdit);
-    headerIcons.appendChild(iconsDelete);
+        headerIcons.appendChild(iconsCheck);
+        headerIcons.appendChild(iconsEdit);
+        headerIcons.appendChild(iconsDelete);
 
-    noteHeader.appendChild(headerTitle);
-    noteHeader.appendChild(headerIcons);
+        noteHeader.appendChild(headerTitle);
+        noteHeader.appendChild(headerIcons);
 
-    divNote.appendChild(noteHeader);
-    divNote.appendChild(noteError);
-    divNote.appendChild(noteContent);
-    colorcode += 1;
-    return divNote;
+        divNote.appendChild(noteHeader);
+        divNote.appendChild(noteError);
+        divNote.appendChild(noteContent);
+        colorcode += 1;
+        return divNote;
+    },   
 }
 
 function hide(){
@@ -126,7 +136,7 @@ function newtodo(){
         document.getElementById("Alert").setAttribute('class','alert');
     }
     else{ 
-        var note = createNote(NewToDoTitle.value,NewToDoContent.value);
+        var note = Note.createNote();
         NewToDoTitle.value = "";
         NewToDoContent.value = "";
         NewToDoTitle.focus = true;
