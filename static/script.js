@@ -7,9 +7,10 @@ var notescontbgTheme = ["w3-theme-l4","w3-theme-l3","w3-theme-l2","w3-theme-l1"]
 var NewToDoTitle = document.getElementById("title");
 var NewToDoContent = document.getElementById("content");
 const sleep = ms => new Promise(res => setTimeout(res, ms));
+var id = 1;
 
-var removeNote = async function (){
-    var parent = this.parentElement.parentElement.parentElement;
+async function removeNote(getid){
+    var parent = document.getElementById(getid);
     parent.parentNode.removeChild(parent);
     var dltbtn = document.getElementsByClassName("prev-dbl-click");
     var order;
@@ -22,8 +23,8 @@ var removeNote = async function (){
     }
 }
 
-var noteComplete = async function(){
-    var parent = this.parentElement.parentElement.parentElement;
+async function noteComplete(getid){
+    var parent = document.getElementById(getid);
     parent.classList.toggle("complete");
     var icon = parent.firstElementChild.lastElementChild.firstElementChild.innerText;
     if (icon === "check"){
@@ -40,11 +41,11 @@ var noteComplete = async function(){
     }
 }
 
-var noteEdit = async function (){
-    var parent = this.parentElement.parentElement.parentElement;
+async function noteEdit(getid){
+    var parent = document.getElementById(getid);
     var edit_bool = parent.lastElementChild.getAttribute("contentEditable");
     if(edit_bool === "false"){
-        parent.lastElementChild.setAttribute("contentEditable","true");
+        parent.getElementsByClassName("note-content")[0].setAttribute("contentEditable","true");
         parent.firstElementChild.lastElementChild.childNodes[1].innerText = "save";
         parent.firstElementChild.lastElementChild.childNodes[1].disabled = true;
         await sleep(100);
@@ -108,9 +109,9 @@ var Note = {
         noteContent.setAttribute("contentEditable","false");
         
         iconsDelete.className = "prev-dbl-click";
-        iconsDelete.addEventListener('click',removeNote);
-        iconsCheck.addEventListener('click',noteComplete);
-        iconsEdit.addEventListener('click',noteEdit);
+        iconsDelete.setAttribute('onclick',"removeNote("+id+")");
+        iconsCheck.setAttribute('onclick',"noteComplete("+id+")");
+        iconsEdit.setAttribute('onclick',"noteEdit("+id+")");
 
         headerIcons.appendChild(iconsCheck);
         headerIcons.appendChild(iconsEdit);
@@ -119,10 +120,12 @@ var Note = {
         noteHeader.appendChild(headerTitle);
         noteHeader.appendChild(headerIcons);
 
+        divNote.id = id;
         divNote.appendChild(noteHeader);
         divNote.appendChild(noteError);
         divNote.appendChild(noteContent);
         colorcode += 1;
+        id +=1;
         return divNote;
     },   
 }
