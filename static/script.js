@@ -48,8 +48,15 @@ function noteComplete(getid){
 }
 
 function removeNote(getid){
-    var pos = findPosition(getid);
-    todoList.splice(pos, 1);
+    // var pos = findPosition(getid);
+    // todoList.splice(pos, 1);
+    var newList = []
+    for (var item of todoList){
+        if(item['id']!==getid){
+            newList.push(item);
+        }
+    }
+    todoList = newList;
     refreshList();
 }
 
@@ -60,7 +67,7 @@ function todo(title, content){
     this.content = content;
     this.colorcode = colorcode++;
     this.status = "incomplete";
-    this.editable = "false";
+    this.editable = false;
     this.error = "hidden";
 }
 
@@ -111,13 +118,15 @@ function createDOM(todoListitem){
         iconsCheck.innerHTML = "close";
         iconsCheck.setAttribute('onclick',"noteIncomplete("+todoListitem["id"]+")");
     }
-    if(todoListitem["editable"]==="false"){
+    if(todoListitem["editable"]===false){
         iconsEdit.innerHTML = "edit";
         iconsEdit.setAttribute('onclick',"noteEdit("+todoListitem["id"]+")");
+        noteContent.setAttribute("contentEditable","false");
     }
     else{
         iconsEdit.innerHTML = "save";
         iconsEdit.setAttribute('onclick',"noteSave("+todoListitem["id"]+")");
+        noteContent.setAttribute("contentEditable","true");
     }
     iconsDelete.innerHTML = "delete";
     iconsDelete.setAttribute('onclick',"removeNote("+todoListitem["id"]+")");
@@ -128,7 +137,6 @@ function createDOM(todoListitem){
     content = content.replace(/\r?\n/g, '<br />');
     noteContent.className = "note-content " + notescontbgTheme[todoListitem["colorcode"]];
     noteContent.innerHTML = todoListitem["content"];
-    noteContent.setAttribute("contentEditable",todoListitem["editable"]);
 
     headerIcons.appendChild(iconsCheck);
     headerIcons.appendChild(iconsEdit);
