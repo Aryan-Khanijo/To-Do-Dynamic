@@ -60,6 +60,10 @@ function removeNote(getid){
     refreshList();
 }
 
+function hide(){
+    document.getElementById("Alert").setAttribute('class','hidden');
+}
+
 function todo(title, content){
     if(colorcode>3){colorcode = 0;}
     this.id = ++id;

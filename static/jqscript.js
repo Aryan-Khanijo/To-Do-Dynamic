@@ -141,6 +141,10 @@ function createDOM(todoListitem){
     return divNote;
 }
 
+function hide(){
+    alert.addClass('hidden');
+}
+
 function addtolist(){
     if(NewToDoTitle.val() === "" || NewToDoContent.val() === ""){
         alert.removeClass("hidden");
