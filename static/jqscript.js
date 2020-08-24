@@ -143,7 +143,7 @@ function createDOM(todoListitem){
 
 function addtolist(){
     if(NewToDoTitle.val() === "" || NewToDoContent.val() === ""){
-        alert.addClass("alert");
+        alert.removeClass("hidden");
     }
     else{
         title = NewToDoTitle.val();
@@ -156,7 +156,7 @@ function addtolist(){
         NewToDoTitle.blur();
         NewToDoContent.focus();
         NewToDoContent.blur();
-        alert.removeClass("alert");
+        alert.addClass("hidden");
         refreshList(); 
     }
     
