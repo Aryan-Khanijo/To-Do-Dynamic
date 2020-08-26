@@ -9,7 +9,7 @@ var todoList = [];
 var NewToDoTitle = $("#title");
 var NewToDoContent = $("#content");
 var notesDiv = $("#currnotes");
-var alert = $("#Alert")
+var alertbox = $("#Alert")
 
 function todo(title, content){
     if(colorcode>3){colorcode = 0;}
@@ -90,11 +90,11 @@ function createDOM(todoListitem){
 }
 $("document").ready(function (){
     $(".closebtn").click(function (){
-        alert.addClass('hidden');
+        alertbox.addClass('hidden');
     })
     $("#addbtn").click(function (){
         if(NewToDoTitle.val() === "" || NewToDoContent.val() === ""){
-            alert.removeClass("hidden");
+            alertbox.removeClass("hidden");
         }
         else{
             title = NewToDoTitle.val();
@@ -107,7 +107,7 @@ $("document").ready(function (){
             NewToDoTitle.blur();
             NewToDoContent.focus();
             NewToDoContent.blur();
-            alert.addClass("hidden");
+            alertbox.addClass("hidden");
             refreshList(); 
         }
     })
