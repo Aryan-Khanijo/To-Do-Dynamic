@@ -124,7 +124,7 @@ function createDOM(todoListitem){
 
     todoListitem["content"] = todoListitem["content"].replace(/\r?\n/g, '<br />');
     noteContent.addClass("note-content " + notescontbgTheme[todoListitem["colorcode"]]);
-    noteContent.text(todoListitem["content"]);
+    noteContent.html(todoListitem["content"]);
 
     headerIcons.append(iconsCheck);
     headerIcons.append(iconsEdit);
