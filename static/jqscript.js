@@ -8,7 +8,6 @@ var id = 0;
 var todoList = [];
 var NewToDoTitle = $("#title");
 var NewToDoContent = $("#content");
-var addbtn = $("#addnote");
 var notesDiv = $("#currnotes");
 var alert = $("#Alert")
 
@@ -140,31 +139,33 @@ function createDOM(todoListitem){
 
     return divNote;
 }
+$("document").ready(function (){
+    $(".closebtn").click(function (){
+        alert.addClass('hidden');
+    })
+    $("#addbtn").click(function (){
+        if(NewToDoTitle.val() === "" || NewToDoContent.val() === ""){
+            alert.removeClass("hidden");
+        }
+        else{
+            title = NewToDoTitle.val();
+            content = NewToDoContent.val();
+            var newTodo = new todo(title, content);
+            todoList.push(newTodo);
+            NewToDoTitle.val("");
+            NewToDoContent.val("");
+            NewToDoTitle.focus();
+            NewToDoTitle.blur();
+            NewToDoContent.focus();
+            NewToDoContent.blur();
+            alert.addClass("hidden");
+            refreshList(); 
+        }
+    })
+})
 
-function hide(){
-    alert.addClass('hidden');
-}
 
-function addtolist(){
-    if(NewToDoTitle.val() === "" || NewToDoContent.val() === ""){
-        alert.removeClass("hidden");
-    }
-    else{
-        title = NewToDoTitle.val();
-        content = NewToDoContent.val();
-        var newTodo = new todo(title, content);
-        todoList.push(newTodo);
-        NewToDoTitle.val("");
-        NewToDoContent.val("");
-        NewToDoTitle.focus();
-        NewToDoTitle.blur();
-        NewToDoContent.focus();
-        NewToDoContent.blur();
-        alert.addClass("hidden");
-        refreshList(); 
-    }
-    
-}
+
 
 function refreshList(){
     notesDiv.html("");
