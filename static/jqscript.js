@@ -11,62 +11,6 @@ var NewToDoContent = $("#content");
 var notesDiv = $("#currnotes");
 var alert = $("#Alert")
 
-function findPosition(getid){
-    var item = 0;
-    for (item=0;item<todoList.length;item++){
-        if(todoList[item]["id"]===getid){
-            return item;
-        }
-    }
-}
-
-function noteSave(getid){
-    var pos = findPosition(getid);
-    var newcontent = $(`#${getid}`).children('div.note-content').text();
-    if(newcontent===""){
-        todoList[pos]["error"] = "error-message";
-        refreshList();
-    }
-    else{
-        todoList[pos]["editable"] = false;
-        todoList[pos]["content"] = newcontent;
-        todoList[pos]["error"] = "hidden";
-        refreshList();
-    }
-}
-
-function noteEdit(getid){
-    var pos = findPosition(getid);
-    todoList[pos]["editable"] = true;
-    refreshList();
-}
-
-function noteIncomplete(getid){
-    var pos = findPosition(getid);
-    todoList[pos]["status"] = "incomplete";
-    refreshList();
-}
-
-function noteComplete(getid){
-    var pos = findPosition(getid);
-    todoList[pos]["status"] = "complete";
-    refreshList();
-}
-
-function removeNote(getid){
-    // var pos = findPosition(getid);
-    // todoList.splice(pos, 1);
-    var newList = []
-    for (var item of todoList){
-        if(item['id']!==getid){
-            newList.push(item);
-        }
-    }
-    todoList = newList;
-    refreshList();
-}
-
-
 function todo(title, content){
     if(colorcode>3){colorcode = 0;}
     this.id = ++id;
@@ -99,24 +43,29 @@ function createDOM(todoListitem){
     headerIcons.addClass("material-icons btn");
     if(todoListitem["status"]==="incomplete"){
         iconsCheck.text("check");
-        iconsCheck.attr('onclick',"noteComplete("+todoListitem["id"]+")");
+        iconsCheck.attr('id',todoListitem["id"]);
+        iconsCheck.addClass("check");
     }
     else{
         iconsCheck.text("close");
-        iconsCheck.attr('onclick',"noteIncomplete("+todoListitem["id"]+")");
+        iconsCheck.attr('id',todoListitem["id"]);
+        iconsCheck.addClass("close");
     }
     if(todoListitem["editable"]===false){
         iconsEdit.text("edit");
-        iconsEdit.attr('onclick',"noteEdit("+todoListitem["id"]+")");
         noteContent.attr("contentEditable","false");
+        iconsEdit.attr('id',todoListitem["id"]);
+        iconsEdit.addClass("edit");
     }
     else{
         iconsEdit.text("save");
-        iconsEdit.attr('onclick',"noteSave("+todoListitem["id"]+")");
         noteContent.attr("contentEditable","true");
+        iconsEdit.attr('id',todoListitem["id"]);
+        iconsEdit.addClass("save");
     }
     iconsDelete.text("delete");
-    iconsDelete.attr('onclick',"removeNote("+todoListitem["id"]+")");
+    iconsDelete.attr('id',todoListitem["id"]);
+    iconsDelete.addClass("delete");
 
     noteError.addClass(todoListitem["error"]);
     noteError.text("You Cannot leave the content empty.");
@@ -132,7 +81,7 @@ function createDOM(todoListitem){
     noteHeader.append(headerTitle);
     noteHeader.append(headerIcons);
 
-    divNote.attr('id',todoListitem["id"]);
+    divNote.attr('id',"note-"+todoListitem["id"]);
     divNote.append(noteHeader);
     divNote.append(noteError);
     divNote.append(noteContent);
@@ -165,7 +114,14 @@ $("document").ready(function (){
 })
 
 
-
+function findPosition(getid){
+    var item = 0;
+    for (item=0;item<todoList.length;item++){
+        if(todoList[item]["id"]==getid){
+            return item;
+        }
+    }
+}
 
 function refreshList(){
     notesDiv.html("");
@@ -174,4 +130,52 @@ function refreshList(){
         var note = createDOM(todoList[item]);
         notesDiv.append(note);
     }
+    $(".save").click(function (){
+        var getid = $(this).attr("id");
+        var pos = findPosition(getid);
+        var newcontent = $(`#note-${getid}`).children('div.note-content').html();
+        if(newcontent===""){
+            todoList[pos]["error"] = "error-message";
+            refreshList();
+        }
+        else{
+            todoList[pos]["editable"] = false;
+            todoList[pos]["content"] = newcontent;
+            todoList[pos]["error"] = "hidden";
+            refreshList();
+        }
+    })
+
+    $(".edit").click(function (){
+        var getid = $(this).attr("id");
+        var pos = findPosition(getid);
+        todoList[pos]["editable"] = true;
+        refreshList();
+    })
+
+    $(".close").click(function (){
+        var getid = $(this).attr("id");
+        var pos = findPosition(getid);
+        todoList[pos]["status"] = "incomplete";
+        refreshList();
+    })
+
+    $(".check").click(function (){
+        var getid = $(this).attr("id");
+        var pos = findPosition(getid);
+        todoList[pos]["status"] = "complete";
+        refreshList();
+    })
+
+    $(".delete").click(function (){
+        var getid = $(this).attr("id");
+        var newList = []
+        for (var item of todoList){
+            if(item['id']!=getid){
+                newList.push(item);
+            }
+        }
+        todoList = newList;
+        refreshList();
+    })
 }
